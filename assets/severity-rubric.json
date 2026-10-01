@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0",
+  "severity_levels": ["critical", "major", "minor", "info", "suggestion"],
+  "confidence_levels": ["high", "medium", "low"],
+  "effort_levels": ["trivial", "easy", "medium", "hard"],
+  "principles": [
+    "Severity estimates potential impact, not exploitability.",
+    "Confidence estimates how strongly a simple textual heuristic matches; test files reduce confidence except for likely real credentials.",
+    "The CLI implements only rules marked implemented_by_cli. Other entries are human-review guidance, not an automated promise."
+  ],
+  "patterns": [
+    {"id":"secret.literal","pattern":"credential-like assignment or recognized token prefix","severity":"critical","confidence":"high","category":"security","message":"Hard-coded credential-like value detected; value is not included in report.","fix":"Remove and rotate if exposed; use a secret manager or environment-based configuration.","implemented_by_cli":true},
+    {"id":"sql.concat","pattern":"SQL keyword on an added line plus concatenation/interpolation marker","severity":"major","confidence":"medium","category":"security","message":"Possible SQL built by concatenation/interpolation.","fix":"Use parameterized queries or safe ORM query construction.","implemented_by_cli":true},
+    {"id":"python.mutable-default","pattern":"^\\s*def\\s+\\w+\\s*\\([^\\n)]*(?:=\\s*(?:\\[\\s*\\]|\\{\\s*\\}))","severity":"major","confidence":"high","category":"logic","message":"Mutable default argument may be shared across calls.","fix":"Use None and initialize a fresh value inside the function.","implemented_by_cli":true},
+    {"id":"query.in-loop","pattern":"loop followed within five added lines by an execute/fetch/query call","severity":"major","confidence":"medium","category":"performance","message":"Possible repeated I/O inside a loop.","fix":"Inspect the call path; batch requests if there is one query per item.","implemented_by_cli":true},
+    {"id":"async.blocking-sleep","pattern":"time.sleep in a changed function hunk containing async def","severity":"major","confidence":"medium","category":"performance","message":"Blocking sleep may stall an async event loop.","fix":"Use an async wait or move blocking work out of the event loop.","implemented_by_cli":true},
+    {"id":"large.read","pattern":"unbounded read() or readlines() on an added line","severity":"minor","confidence":"low","category":"performance","message":"A full read may load a large resource into memory.","fix":"Stream or process bounded chunks if input size is not controlled.","implemented_by_cli":true},
+    {"id":"logic.nested-conditionals","pattern":"nested conditional depth greater than three","severity":"minor","confidence":"medium","category":"style","message":"Deep conditional nesting may reduce readability.","fix":"Consider guard clauses or smaller functions.","implemented_by_cli":false},
+    {"id":"style.magic-number","pattern":"numeric literal lacking nearby domain context","severity":"minor","confidence":"low","category":"style","message":"Possible unexplained constant.","fix":"Use a named constant when it improves clarity.","implemented_by_cli":false},
+    {"id":"style.public-docstring","pattern":"public function without a docstring in full-file context","severity":"suggestion","confidence":"low","category":"style","message":"Public API documentation may be missing.","fix":"Document purpose, parameters, return values, and exceptions where useful.","implemented_by_cli":false},
+    {"id":"security.unvalidated-redirect","pattern":"redirect uses untrusted input without allowlist","severity":"major","confidence":"low","category":"security","message":"A redirect may use unvalidated external input.","fix":"Validate targets against a strict allowlist.","implemented_by_cli":false}
+  ]
+}
