@@ -22,4 +22,4 @@ The product does not rank contributors, infer intent or traits, profile people, 
 
 ## Governance status
 
-The privacy notice, inventory, RoPA, threat model, safety spec, and incident playbook are working documents. The owner/contact, jurisdiction, license, vulnerability disclosure channel, operational escalation coverage, and provider contracts are not configured. No independent legal review, security audit, or red-team sign-off is claimed.
+The privacy notice, inventory, RoPA, threat model, safety spec, and incident playbook are working documents. A proprietary rights notice names the rights holders supplied by the owner; customer license terms, pricing, jurisdiction-specific legal review, and sales/support contact are not established here. GitHub private vulnerability reporting is enabled; maintainers must still verify that notifications reach a monitored account. No independent legal review, security audit, or red-team sign-off is claimed.
