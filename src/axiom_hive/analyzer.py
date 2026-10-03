@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import re
 
-from .diff_parser import ChangedFile, parse_unified_diff
+from .diff_parser import AddedLine, ChangedFile, parse_unified_diff
 from .models import Confidence, Finding, ReviewReport, Severity
 
 MAX_DIFF_BYTES = 10 * 1024 * 1024
@@ -74,6 +74,29 @@ def _rules_for_line(text: str, path: str) -> list[str]:
     return found
 
 
+def _blocking_async_sleep_lines(added: tuple[AddedLine, ...]) -> set[int]:
+    """Find blocking sleeps within async function scopes visible in added lines."""
+    function_scopes: list[tuple[int, bool]] = []
+    flagged: set[int] = set()
+    for item in added:
+        stripped = item.text.lstrip()
+        if not stripped or stripped.startswith("#"):
+            continue
+        indentation = len(item.text) - len(stripped)
+        while function_scopes and indentation <= function_scopes[-1][0]:
+            function_scopes.pop()
+        function_match = re.match(r"(?:(async)\s+)?def\b", stripped)
+        if function_match:
+            function_scopes.append((indentation, bool(function_match.group(1))))
+            continue
+        if re.match(r"class\b", stripped):
+            function_scopes.append((indentation, False))
+            continue
+        if function_scopes and function_scopes[-1][1] and _SLEEP.search(stripped):
+            flagged.add(item.number)
+    return flagged
+
+
 def analyze_diff(text: str, repo: str = "local/input", pr: int | None = None) -> ReviewReport:
     if len(text.encode("utf-8", errors="replace")) > MAX_DIFF_BYTES:
         raise ValueError(f"Diff exceeds the {MAX_DIFF_BYTES // (1024 * 1024)} MiB processing limit.")
@@ -83,13 +106,13 @@ def analyze_diff(text: str, repo: str = "local/input", pr: int | None = None) ->
     for changed_file in files:
         added = changed_file.added_lines
         test_file = _test_context(changed_file.path)
-        async_context = any(re.search(r"\basync\s+def\b", item.text) for item in added)
+        async_sleep_lines = _blocking_async_sleep_lines(added)
         loop_lines = [i for i, item in enumerate(added) if _LOOP.search(item.text)]
         for index, item in enumerate(added):
             for rule_id in _rules_for_line(item.text, changed_file.path):
                 findings.append(_finding(rule_id, changed_file.path, item.number, test_file, counter))
                 counter += 1
-            if async_context and _SLEEP.search(item.text):
+            if item.number in async_sleep_lines:
                 findings.append(_finding("async.blocking-sleep", changed_file.path, item.number, test_file, counter))
                 counter += 1
             if _DB_CALL.search(item.text) and any(0 <= index - loop_index <= 5 for loop_index in loop_lines):
