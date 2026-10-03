@@ -56,6 +56,16 @@ class AnalyzerTests(unittest.TestCase):
         self.assertIn("sql.concat", ids)
         self.assertIn("async.blocking-sleep", ids)
 
+    def test_sync_function_in_same_diff_is_not_flagged_as_async_sleep(self):
+        body = "\n".join([
+            "async def load():",
+            "    await fetch()",
+            "def sync_load():",
+            "    time.sleep(1)",
+        ])
+        report = analyze_diff(make_diff("service.py", body))
+        self.assertNotIn("async.blocking-sleep", {f.rule_id for f in report.findings})
+
     def test_query_near_loop_is_low_confidence_in_test_fixture(self):
         body = "for item in items:\n    cursor.execute(query)"
         report = analyze_diff(make_diff("tests/test_queries.py", body))

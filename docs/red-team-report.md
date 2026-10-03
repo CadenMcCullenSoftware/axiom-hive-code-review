@@ -16,7 +16,7 @@ Assess secret-value non-disclosure, diff injection handling, malformed/oversized
 | RT-004 | More than 300 file sections | Analyze at most 300 and mark report incomplete | Unit regression test. |
 | RT-005 | Malformed non-diff content | Controlled error, no traceback from CLI | Analyzer raises a ValueError; CLI error path smoke-tested. |
 | RT-006 | Input above 10 MiB | Reject before analysis with size message | Automated boundary test. |
-| RT-007 | Path contains terminal control characters | Remove control characters in displayed location | Parser code; dedicated automated test still needed. |
+| RT-007 | Path contains terminal control characters | Remove control characters in displayed location | Automated regression test: `test_escaped_control_characters_and_backticks_in_path_are_sanitized` in `tests/test_analyzer.py`. |
 | RT-008 | Review attempts to change repository or publish comment | No such action or write API is exposed by wrapper | Architecture/code inspection and local fake-`gh` smoke test. |
 
 ## Results and remediation

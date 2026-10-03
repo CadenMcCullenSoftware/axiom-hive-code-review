@@ -28,7 +28,7 @@ Install locally if desired with `python3 -m pip install .`; then use `axiom-revi
 
 ## What it detects
 
-The initial heuristics look for certain credential-like literals, SQL-looking concatenation, Python mutable defaults, query-like calls near loops, blocking sleep in changed async functions, and unbounded `read()`/`readlines()` calls. Test/spec/fixture paths reduce confidence for most non-secret rules. The rule catalog distinguishes implemented checks from human-review guidance.
+The initial heuristics look for certain credential-like literals, SQL-looking concatenation, Python mutable defaults, query-like calls near loops, blocking sleep where the async function scope is visible in added diff lines, and unbounded `read()`/`readlines()` calls. These are text-based cues, not full-language or control-flow analysis; the async-sleep check cannot reliably identify a surrounding function when its definition is outside the diff. Test/spec/fixture paths reduce confidence for most non-secret rules. The rule catalog distinguishes implemented checks from human-review guidance.
 
 ## Limits and safety
 
