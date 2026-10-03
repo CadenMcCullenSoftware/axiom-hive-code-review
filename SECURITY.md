@@ -1,7 +1,9 @@
 # Security Reporting
 
-This repository is an initial local CLI prototype. A monitored private security-reporting contact has not yet been configured. Before external distribution, the maintainer should enable a private reporting channel (such as GitHub private vulnerability reporting where available) and add response expectations here.
+Please report suspected vulnerabilities through GitHub's private vulnerability reporting for this repository: open the **Security** tab, choose **Advisories**, then **Report a vulnerability**. Do not post live credentials or unpatched vulnerability details in public issues.
 
-Until then, avoid posting live credentials or unremediated exploit details in public issues. If you need to report a concern, use the repository owner's existing private contact channel if one has been independently verified. No email address or response-time commitment is asserted by this repository.
+Repository maintainers must keep GitHub security-alert notifications enabled for at least one monitored account. GitHub's private reporting feature must be enabled in repository settings for the report button to appear. If the button is unavailable, do not publish sensitive details; use a verified private contact from the repository owner instead. No alternate email address or response-time commitment is provided here.
 
-Do not test the tool against systems or repositories without authorization. If a credential is exposed, contact its owner and rotate/revoke it; do not include its value in a report.
+Reports should include a concise description, affected version or commit, reproduction steps, and potential impact. Do not include live secrets; if a credential is exposed, notify its owner and rotate or revoke it.
+
+Do not test Axiom Hive against systems or repositories without authorization.

@@ -26,6 +26,10 @@ The wrapper invokes `gh pr diff` in read-only mode, processes its response in me
 
 Install locally if desired with `python3 -m pip install .`; then use `axiom-review --help`.
 
+## Licensing and commercial use
+
+This project is proprietary and all rights are reserved by Nicholas Michael Grossi and Caden MCCullen; see [`LICENSE`](LICENSE). Commercial use requires a separate written agreement with the rights holders. The repository is publicly visible, but that does not grant general permission to reuse or redistribute the software. Pricing, customer terms, and support arrangements are not published in this repository.
+
 ## What it detects
 
 The initial heuristics look for certain credential-like literals, SQL-looking concatenation, Python mutable defaults, query-like calls near loops, blocking sleep in changed async functions, and unbounded `read()`/`readlines()` calls. Test/spec/fixture paths reduce confidence for most non-secret rules. The rule catalog distinguishes implemented checks from human-review guidance.
@@ -58,4 +62,4 @@ The project has no runtime third-party Python dependencies. GitHub Actions runs 
 
 ## Project status
 
-Prototype / initial implementation. The red-team test plan has not been independently executed. Repository license and public security-reporting contact are not configured. Review these before external distribution.
+Prototype / initial implementation. The red-team test plan has not been independently executed. A proprietary rights notice is present, but customer commercial terms and support arrangements are not published. GitHub private vulnerability reporting and maintainer notifications must be verified before external distribution.

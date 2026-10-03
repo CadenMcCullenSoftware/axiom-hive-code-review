@@ -8,6 +8,7 @@ Before a tagged or distributed release:
 - [ ] Verify Markdown and JSON output, including secret-value non-disclosure and the incomplete-file indicator.
 - [ ] Update version, changelog, report schema, skill metadata, and documentation for material behavior/data-flow changes.
 - [ ] Reassess threat model, privacy notice, data inventory, RoPA draft, safety, and human-rights impact for new services or data use.
-- [ ] Complete repository license and monitored security/privacy contacts before broad external distribution.
+- [ ] Confirm customer-facing commercial terms with the rights holders; the repository's proprietary notice is not a customer agreement.
+- [ ] Verify GitHub private vulnerability reporting is enabled and at least one maintainer receives and monitors its notifications before broad external distribution.
 - [ ] Do not claim independent red-team, legal review, compliance, or certification unless actually completed and documented.
 - [ ] Keep release and any PR publication decisions under human control.
