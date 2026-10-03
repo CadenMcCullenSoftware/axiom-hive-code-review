@@ -3,7 +3,7 @@
 ## Unreleased
 
 - Add a proprietary all-rights-reserved notice for the owner-supplied rights holders; commercial customer terms remain separate and unpublished.
-- Document GitHub private vulnerability reporting and the maintainer notification caveat.
+- Enable GitHub private vulnerability reporting and document the maintainer notification caveat.
 
 ## 0.1.0 — Initial local prototype
 

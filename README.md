@@ -62,4 +62,4 @@ The project has no runtime third-party Python dependencies. GitHub Actions runs 
 
 ## Project status
 
-Prototype / initial implementation. The red-team test plan has not been independently executed. A proprietary rights notice is present, but customer commercial terms and support arrangements are not published. GitHub private vulnerability reporting and maintainer notifications must be verified before external distribution.
+Prototype / initial implementation. The red-team test plan has not been independently executed. A proprietary rights notice is present, but customer commercial terms and support arrangements are not published. GitHub private vulnerability reporting is enabled; maintainers still need to ensure notifications are actively monitored before external distribution.

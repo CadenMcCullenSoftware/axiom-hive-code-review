@@ -12,7 +12,7 @@ Developers should avoid committing secrets, use MFA on repository accounts, keep
 
 ## Vulnerability reporting and response
 
-GitHub private vulnerability reporting is the intended channel; repository enablement and maintainer notification coverage must be verified in settings before external distribution. No alternate email address or response-time commitment is published. Do not publish an unremediated exploit or submit credentials in a public issue.
+GitHub private vulnerability reporting is enabled for this repository. Maintainers must verify that at least one monitored account receives its notifications before external distribution. No alternate email address or response-time commitment is published. Do not publish an unremediated exploit or submit credentials in a public issue.
 
 On receiving a report, the responsible maintainer should acknowledge privately, reproduce only in an authorized isolated environment, assess impact, prepare a fix, test regression behavior, coordinate disclosure with the reporter, and document closure. If secrets are exposed, remove and rotate/revoke them. If any personal-data incident is suspected, involve the responsible organization and qualified counsel promptly; legal notification deadlines and duties are context-specific and are not decided by this codebase.
 
